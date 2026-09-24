@@ -56,6 +56,15 @@ make dashboard
   - Parse `Minerals_5640.csv`
   - Return `pd.DataFrame` with columns: `sample_id, image_path, label, label_idx`
   - Log: total images, images per class
+- **Note on Minet v2 Dataset**: Download using kagglehub:
+  ```python
+  import kagglehub
+  
+  # Download latest version
+  path = kagglehub.dataset_download("youcefattallah97/minerals-identification-classification")
+  print("Path to dataset files:", path)
+  ```
+  *(Move the downloaded files to `data/raw/minet_v2/`)*
 - Complete the `HIDSAGLoader` class:
   - Use the hidsag library from [https://github.com/alges/hidsag](https://github.com/alges/hidsag)
   - Load `data/hidsag/GEOMET/` first
