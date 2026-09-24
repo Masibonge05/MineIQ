@@ -1,0 +1,48 @@
+rules:
+  - id: "low_recovery_high_confidence"
+    description: "Low predicted recovery with high confidence"
+    condition:
+      target: "cu_recovery"
+      operator: "<"
+      value: 70
+      confidence: ">="
+      confidence_value: 0.80
+    action:
+      priority: "HIGH"
+      message: "Predicted Cu recovery is low. Flag for metallurgical review."
+      icon: "alert-triangle"
+
+  - id: "low_recovery_low_confidence"
+    description: "Low predicted recovery but uncertain"
+    condition:
+      target: "cu_recovery"
+      operator: "<"
+      value: 70
+      confidence: "<"
+      confidence_value: 0.60
+    action:
+      priority: "MEDIUM"
+      message: "Prediction uncertain. Laboratory verification recommended."
+      icon: "shield-question"
+
+  - id: "high_bwi"
+    description: "High Bond Work Index detected"
+    condition:
+      target: "bwi"
+      operator: ">"
+      value: 14
+    action:
+      priority: "MEDIUM"
+      message: "Hard ore detected. Review grinding energy requirements."
+      icon: "gauge"
+
+  - id: "high_pyrite"
+    description: "High pyrite content"
+    condition:
+      target: "pyrite_fraction"
+      operator: ">"
+      value: 0.20
+    action:
+      priority: "MEDIUM"
+      message: "Elevated pyrite. Consider depressant review."
+      icon: "layers"

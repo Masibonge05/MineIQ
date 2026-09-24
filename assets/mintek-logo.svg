@@ -1,0 +1,17 @@
+<svg width="250" height="150" viewBox="0 0 250 150" xmlns="http://www.w3.org/2000/svg">
+  <!-- Black Mountain Base -->
+  <polygon points="50,110 70,50 110,50 120,70 140,50 180,50 200,110" fill="#000000"/>
+  
+  <!-- Red Flame -->
+  <path d="M150,20 Q170,20 170,50 Q170,60 160,70 Q145,55 140,65 Q135,55 120,70 Q110,60 110,50 Q110,20 130,20 Q140,10 150,20 Z" fill="#E61C24" stroke="#000000" stroke-width="2"/>
+  
+  <!-- White Crucible -->
+  <polygon points="125,50 155,50 160,70 120,70" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+  
+  <!-- Crucible Bottom Curve -->
+  <path d="M115,70 Q140,90 165,70" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+  <path d="M115,70 Q140,90 165,70" fill="none" stroke="#000000" stroke-width="1.5"/>
+
+  <!-- MINTEK Text -->
+  <text x="125" y="140" font-family="Arial, sans-serif" font-weight="900" font-size="42" fill="#FFFFFF" stroke="#000000" stroke-width="2" text-anchor="middle" letter-spacing="2">MINTEK</text>
+</svg>

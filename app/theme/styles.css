@@ -1,0 +1,84 @@
+:root {
+  --color-primary: #0B3D6B;
+  --color-primary-light: #1A5A96;
+  --color-primary-dark: #062544;
+  --color-accent: #E67E22;
+  --color-accent-light: #F39C12;
+  --color-accent-dark: #B85C00;
+  --color-success: #27AE60;
+  --color-warning: #F39C12;
+  --color-danger: #C0392B;
+  --color-info: #3498DB;
+  --color-bg: #F5F7FA;
+  --color-surface: #FFFFFF;
+  --color-border: #E1E8ED;
+  --color-text: #1A2332;
+  --color-text-muted: #5A6C7D;
+}
+
+/* Header */
+.mineiq-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.mineiq-header h1 {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+}
+
+/* Cards */
+.mineiq-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+}
+
+/* Confidence badge */
+.confidence-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.confidence-badge.high {
+  background: rgba(39, 174, 96, 0.15);
+  color: var(--color-success);
+}
+
+.confidence-badge.medium {
+  background: rgba(243, 156, 18, 0.15);
+  color: var(--color-warning);
+}
+
+.confidence-badge.low {
+  background: rgba(192, 57, 43, 0.15);
+  color: var(--color-danger);
+}
+
+/* Priority alerts */
+.alert {
+  border-left: 4px solid;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.alert.high { border-color: var(--color-danger); background: rgba(192, 57, 43, 0.05); }
+.alert.medium { border-color: var(--color-warning); background: rgba(243, 156, 18, 0.05); }
+.alert.low { border-color: var(--color-info); background: rgba(52, 152, 219, 0.05); }

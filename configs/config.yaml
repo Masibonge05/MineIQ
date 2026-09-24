@@ -1,0 +1,45 @@
+project:
+  name: "MineIQ"
+  version: "0.1.0"
+  tagline: "Real-Time Mineral Intelligence for Flotation Optimisation"
+
+paths:
+  minet_v2_root: "data/raw/minet_v2"
+  hidsag_root: "data/hidsag"
+  incoming_dir: "data/incoming"
+  checkpoints: "outputs/checkpoints"
+  metrics: "outputs/metrics"
+  logs: "outputs/logs"
+  predictions: "outputs/predictions"
+
+data:
+  image_size: 224
+  batch_size: 32
+  num_workers: 4
+  seed: 42
+  splits: {train: 0.70, val: 0.15, test: 0.15}
+  split_level: "sample"
+
+mineral_classifier:
+  backbone: "resnet50"
+  num_classes: null
+  dropout: 0.3
+  confidence_threshold_high: 0.80
+  confidence_threshold_medium: 0.60
+
+processability:
+  model: "xgboost"
+  targets: ["cu_recovery", "mo_recovery", "bwi", "lime_consumption"]
+  quantiles: [0.05, 0.5, 0.95]
+
+decision:
+  rules_file: "configs/rules.yaml"
+  min_confidence_to_act: 0.60
+
+realtime:
+  poll_interval_seconds: 1
+  simulate_interval_seconds: 3
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
