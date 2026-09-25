@@ -21,6 +21,7 @@ Required Reading for Everyone:
 *   `docs/TEAM_GUIDE.md`
 *   `docs/ARCHITECTURE.md`
 *   `docs/DATA.md`
+*   `docs/DECISION_RULES.md`
 
 ## 👑 The Golden Rule
 
@@ -325,6 +326,10 @@ Required Reading for Everyone:
         *   Team credits
         *   HIDSAG citation (Ehrenfeld et al., 2023, Scientific Data)
         *   Mintek branding and mission
+    *   **Page 6 — Live Camera:**
+        *   Live webcam feed using OpenCV for real-time inference
+        *   Computer vision UI targeting box
+        *   Live classification and process rule triggers based on HIDSAG parameters
 
 ### 6. Polish, Test, and Rehearse
 *   Test every page with mock and real data

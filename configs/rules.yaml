@@ -1,17 +1,59 @@
 rules:
-  - id: "low_recovery_high_confidence"
-    description: "Low predicted recovery with high confidence"
+  - id: "high_pyrite"
+    description: "High pyrite content detected"
+    condition:
+      target: "pyrite"
+      operator: ">"
+      value: 15
+    action:
+      priority: "HIGH"
+      message: "High pyrite. Increase pH with lime to depress pyrite. Add depressants (sodium humate, CMC). Control grind size."
+      icon: "alert-triangle"
+
+  - id: "low_cu_recovery_chalcopyrite"
+    description: "Low predicted Cu recovery with chalcopyrite present (indicates poor liberation)"
     condition:
       target: "cu_recovery"
       operator: "<"
-      value: 70
-      confidence: ">="
-      confidence_value: 0.80
+      value: 75
     action:
       priority: "HIGH"
-      message: "Predicted Cu recovery is low. Flag for metallurgical review."
-      icon: "alert-triangle"
+      message: "Poor Cu recovery. If chalcopyrite is locked, finer grind required. Consider regrinding and higher collector dosage."
+      icon: "hammer"
 
+  - id: "high_clay"
+    description: "High clay minerals (Kaolinite/Chlorite) detected"
+    condition:
+      target: "kaolinite"
+      operator: ">"
+      value: 10
+    action:
+      priority: "MEDIUM"
+      message: "High clays detected. Add dispersants (sodium silicate). Consider blending and monitor pulp rheology."
+      icon: "droplet"
+
+  - id: "high_bwi"
+    description: "High Bond Work Index (WI) detected"
+    condition:
+      target: "bwi"
+      operator: ">"
+      value: 15
+    action:
+      priority: "MEDIUM"
+      message: "Hard ore detected (High WI). Adjust mill feed rate or grind target."
+      icon: "gauge"
+
+  - id: "copper_oxides"
+    description: "Copper oxides (Malachite/Chrysocolla) present"
+    condition:
+      target: "malachite"
+      operator: ">"
+      value: 2
+    action:
+      priority: "HIGH"
+      message: "Copper oxides present. Standard xanthate ineffective. Perform sulfidation with sodium sulfide before collector."
+      icon: "flask-conical"
+      
   - id: "low_recovery_low_confidence"
     description: "Low predicted recovery but uncertain"
     condition:
@@ -25,24 +67,71 @@ rules:
       message: "Prediction uncertain. Laboratory verification recommended."
       icon: "shield-question"
 
-  - id: "high_bwi"
-    description: "High Bond Work Index detected"
+  - id: "mo_cu_separation"
+    description: "Molybdenite and Chalcopyrite both present (Cu-Mo Separation)"
     condition:
-      target: "bwi"
+      target: "molybdenite"
       operator: ">"
-      value: 14
+      value: 1
+    action:
+      priority: "HIGH"
+      message: "Molybdenite detected. Initiate Cu-Mo selective separation: Depress chalcopyrite using NaHS or Na2S, and use kerosene collector for MoS2."
+      icon: "git-branch"
+
+  - id: "high_silica_iron_ore"
+    description: "High Silica Feed in Flotation (Sourced from Kaggle Iron Ore dataset)"
+    condition:
+      target: "silica"
+      operator: ">"
+      value: 10
+    action:
+      priority: "HIGH"
+      message: "High Silica impurity detected. Increase Starch Flow (metal depressant) and adjust Amina Flow (silica collector). Monitor Air Flow columns."
+      icon: "arrow-up"
+
+  - id: "water_quality_hardness"
+    description: "High Water Hardness / Impurities in Flotation Water (Sourced from HZDR Kinetics dataset)"
+    condition:
+      target: "water_hardness"
+      operator: ">"
+      value: 150
     action:
       priority: "MEDIUM"
-      message: "Hard ore detected. Review grinding energy requirements."
+      message: "Poor water quality/high hardness detected. Calcium and Magnesium ions may consume reagents. Increase collector dosage to compensate."
+      icon: "droplet"
+
+  - id: "alunite_acidity"
+    description: "Alunite presence lowers pH and spikes lime consumption"
+    condition:
+      target: "alunite"
+      operator: ">"
+      value: 1
+    action:
+      priority: "HIGH"
+      message: "Alunite detected. Anticipate natural pH drop and significantly higher lime consumption. Pre-emptively adjust lime dosage."
+      icon: "flask-conical"
+
+  - id: "high_k_feldspar_wi"
+    description: "Potassium Feldspar causes high Work Index (WI)"
+    condition:
+      target: "k-feldspar"
+      operator: ">"
+      value: 10
+    action:
+      priority: "MEDIUM"
+      message: "High Potassium Feldspar detected. Correlates with high Work Index (hard ore). Increase grinding energy or reduce mill feed rate."
       icon: "gauge"
 
-  - id: "high_pyrite"
-    description: "High pyrite content"
+  - id: "chalcopyrite_locked_pyrite"
+    description: "Chalcopyrite enclosed in pyrite requires regrind"
     condition:
-      target: "pyrite_fraction"
+      target: "pyrite"
       operator: ">"
-      value: 0.20
+      value: 20
     action:
-      priority: "MEDIUM"
-      message: "Elevated pyrite. Consider depressant review."
-      icon: "layers"
+      priority: "HIGH"
+      message: "High Pyrite detected. Chalcopyrite is likely enclosed within pyrite and poorly liberated. Regrind necessary before flotation."
+      icon: "hammer"
+
+
+
