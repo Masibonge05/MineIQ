@@ -108,7 +108,7 @@ rules:
       value: 1
     action:
       priority: "HIGH"
-      message: "Alunite detected. Anticipate natural pH drop and significantly higher lime consumption. Pre-emptively adjust lime dosage."
+      message: "Alunite detected. Anticipate natural pH drop. Engage FloatStar pH Controller to handle non-linear pH curve and pre-emptively adjust lime dosage."
       icon: "flask-conical"
 
   - id: "high_k_feldspar_wi"
@@ -152,5 +152,16 @@ rules:
       value: 8
     action:
       priority: "MEDIUM"
-      message: "High Silica detected. Engage FloatStar Flow Optimiser (FSFO) to stabilize concentrate mass pulls from Rougher/Scavenger sumps."
+      message: "High Silica detected. Engage FloatStar Flow Optimiser (FSFO) to stabilize concentrate mass pulls. Engage Level Fault Detector to watch for sump signal spikes."
       icon: "sliders"
+
+  - id: "reagent_optimization_required"
+    description: "Complex gangue detected requiring reagent optimization"
+    condition:
+      target: "pyrite"
+      operator: ">"
+      value: 5
+    action:
+      priority: "MEDIUM"
+      message: "Complex sulfide matrix detected. Engage FloatStar Reagent Optimiser to use fuzzy logic for optimal reagent dosage and prevent under-dosing."
+      icon: "test-tubes"

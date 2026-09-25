@@ -83,7 +83,10 @@ Based on Mintek's MillStar and FloatStar advanced control philosophies:
 - **MillStar Solids Feed Controller:** Stabilizes mill feed tonnage by adjusting vibratory feeder frequencies and controls solid-to-liquid ratio by adjusting mill inlet water.
 - **StarCS RNMPC:** Controls cyclone feed density and sump level to ensure consistent feed to the flotation circuit.
 - **FloatStar Flow Optimiser (FSFO) & Level Stabiliser (FSLS):** Ensures stable concentrate flow from the Rougher/Scavenger/Cleaner sumps by interacting with cell levels.
-- **FloatStar Grade Recovery Optimiser (FSGO):** Maintains final concentrate grade to setpoint by actively adjusting the air and level setpoints of the Column and Rougher flotation cells.
+- **FloatStar Grade-Recovery Optimiser (FSGO):** Maintains final concentrate grade to setpoint by actively adjusting the air and level setpoints of the Column and Rougher flotation cells.
+- **FloatStar Reagent Optimiser:** Utilizes fuzzy logic to automatically adjust the reagent suite to changing feed conditions, preventing reagent under-dosing.
+- **FloatStar pH Controller:** Handles the severe non-linearity of the pH curve and base feed silting using advanced multi-variable algorithms.
+- **FloatStar Level Fault Detector:** Actively monitors for frozen signals, signal spikes, and overflows in sumps and flotation banks.
 
 ## 3. What Your AI Will Learn
 ### Stage 1: Mineral Classifier
