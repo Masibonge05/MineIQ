@@ -108,7 +108,7 @@ rules:
       value: 1
     action:
       priority: "HIGH"
-      message: "Alunite detected. Anticipate natural pH drop. Engage FloatStar pH Controller to handle non-linear pH curve and pre-emptively adjust lime dosage."
+      message: "Alunite detected. Anticipate natural pH drop. Recommend review of lime dosage strategy (potential FloatStar pH Controller integration)."
       icon: "flask-conical"
 
   - id: "high_k_feldspar_wi"
@@ -119,7 +119,7 @@ rules:
       value: 10
     action:
       priority: "MEDIUM"
-      message: "Hard ore (High K-Feldspar). Engage MillStar Solids Feed Controller to adjust vibratory feeder frequencies and inlet water ratio. Engage StarCS RNMPC for cyclone feed density."
+      message: "Hard ore predicted (High K-Feldspar). Recommend metallurgical review of grinding energy requirements (potential MillStar/StarCS RNMPC integration)."
       icon: "gauge"
 
   - id: "chalcopyrite_locked_pyrite"
@@ -130,7 +130,7 @@ rules:
       value: 20
     action:
       priority: "HIGH"
-      message: "High Pyrite detected. Chalcopyrite is likely enclosed within pyrite and poorly liberated. Regrind necessary before flotation."
+      message: "High Pyrite with Cu. If liberation data confirms locking, flag for metallurgical review (potential regrind evaluation)."
       icon: "hammer"
 
   - id: "low_grade_recovery"
@@ -141,7 +141,7 @@ rules:
       value: 80
     action:
       priority: "HIGH"
-      message: "Low Cu Recovery. Engage FloatStar Grade Recovery Optimiser (FSGO) to automatically calculate optimal air and level setpoints on Roughers and Columns."
+      message: "Low predicted Cu Recovery. Recommend review of flotation setpoints (potential FloatStar Grade-Recovery Optimiser integration)."
       icon: "activity"
 
   - id: "unstable_mass_pull"
@@ -152,7 +152,7 @@ rules:
       value: 8
     action:
       priority: "MEDIUM"
-      message: "High Silica detected. Engage FloatStar Flow Optimiser (FSFO) to stabilize concentrate mass pulls. Engage Level Fault Detector to watch for sump signal spikes."
+      message: "High Silica detected. Potential for unstable mass pull. Recommend review of Rougher/Scavenger sump levels (potential FloatStar Flow Optimiser integration)."
       icon: "sliders"
 
   - id: "reagent_optimization_required"
@@ -163,5 +163,5 @@ rules:
       value: 5
     action:
       priority: "MEDIUM"
-      message: "Complex sulfide matrix detected. Engage FloatStar Reagent Optimiser to use fuzzy logic for optimal reagent dosage and prevent under-dosing."
+      message: "Complex sulfide matrix detected. Recommend evaluation of reagent suite (potential FloatStar Reagent Optimiser integration)."
       icon: "test-tubes"

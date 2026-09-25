@@ -101,6 +101,9 @@ if st.session_state.camera_active:
             # Display frame
             camera_placeholder.image(frame_rgb, use_column_width=True)
             
+            # Fluctuating confidence to demonstrate uncertainty handling
+            confidence = 0.5 + 0.45 * np.cos(t / 5)
+            
             # Update prediction dashboard
             status_placeholder.success("Active - Scanning...")
             
@@ -113,22 +116,27 @@ if st.session_state.camera_active:
             * Chalcopyrite: 8.3%
             """)
             
+            conf_str = "🟢 High" if confidence > 0.8 else "🟡 Moderate" if confidence > 0.6 else "🔴 Low"
+            
             process_placeholder.markdown(f"""
             **Processability Predictions:**
-            * Cu Recovery: {cu_rec:.1f}% (Medium Confidence)
+            * Cu Recovery: {cu_rec:.1f}%
             * Bond WI: 14.0
+            * Confidence: {conf_str} ({confidence:.0%})
             """)
             
-            if decision_engine:
-                decisions = decision_engine.evaluate(minerals, predictions, confidence=0.7)
+            if confidence < 0.6:
+                decision_placeholder.error("🚨 **MANUAL / LABORATORY VERIFICATION REQUIRED**\n\nReason: Incoming spectral signature falls outside well-characterised training distribution.")
+            elif decision_engine:
+                decisions = decision_engine.evaluate(minerals, predictions, confidence=confidence)
                 if decisions:
                     alert_md = ""
                     for d in decisions:
                         icon = "🔴" if d['priority'] == 'HIGH' else "🟠"
-                        alert_md += f"{icon} **{d['priority']} PRIORITY:** {d['message']}\n\n"
+                        alert_md += f"{icon} **RECOMMENDATION ({d['priority']}):** {d['message']}\n\n"
                     decision_placeholder.warning(alert_md)
                 else:
-                    decision_placeholder.info("🟢 No immediate alert. Normal processing.")
+                    decision_placeholder.info("🟢 No immediate recommendations. Normal processing.")
             
             # We add a small sleep to avoid maxing out CPU
             cv2.waitKey(100)

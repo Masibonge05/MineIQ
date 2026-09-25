@@ -78,15 +78,14 @@ Based on the literature, here are the mineral-to-action mappings your AI should 
 - Molybdenite is naturally hydrophobic; enhance with kerosene collector.
 - Maintain careful pH control to avoid toxic H2S gas release from NaHS.
 
-### Advanced Process Control (APC) Strategies
-Based on Mintek's MillStar and FloatStar advanced control philosophies:
-- **MillStar Solids Feed Controller:** Stabilizes mill feed tonnage by adjusting vibratory feeder frequencies and controls solid-to-liquid ratio by adjusting mill inlet water.
-- **StarCS RNMPC:** Controls cyclone feed density and sump level to ensure consistent feed to the flotation circuit.
-- **FloatStar Flow Optimiser (FSFO) & Level Stabiliser (FSLS):** Ensures stable concentrate flow from the Rougher/Scavenger/Cleaner sumps by interacting with cell levels.
-- **FloatStar Grade-Recovery Optimiser (FSGO):** Maintains final concentrate grade to setpoint by actively adjusting the air and level setpoints of the Column and Rougher flotation cells.
-- **FloatStar Reagent Optimiser:** Utilizes fuzzy logic to automatically adjust the reagent suite to changing feed conditions, preventing reagent under-dosing.
-- **FloatStar pH Controller:** Handles the severe non-linearity of the pH curve and base feed silting using advanced multi-variable algorithms.
-- **FloatStar Level Fault Detector:** Actively monitors for frozen signals, signal spikes, and overflows in sumps and flotation banks.
+### APC Decision Support (Recommendation Layer)
+MineIQ does **not** directly command plant control systems. Instead, it identifies conditions that warrant operator review and provides recommendations that *could* feed into Mintek's advanced control layer:
+- **MillStar Solids Feed Controller:** When high Work Index (e.g., K-Feldspar) is predicted, the system flags the need to review grinding energy requirements (a task managed by MillStar).
+- **StarCS RNMPC:** When highly variable ore is detected, the system recommends reviewing cyclone feed density stability.
+- **FloatStar Flow Optimiser (FSFO):** When high silica/gangue threatens mass pull stability, the system flags this for potential FSFO intervention.
+- **FloatStar Grade-Recovery Optimiser (FSGO):** When predicted recovery drops below target, the system recommends reviewing flotation setpoints for recovery optimization.
+- **FloatStar Reagent Optimiser:** Complex sulfide matrices trigger a recommendation to evaluate the reagent suite.
+- **FloatStar pH & Level Fault Detectors:** Specific minerals like Alunite trigger early warnings for pH drops, allowing proactive review of lime dosage strategies.
 
 ## 3. What Your AI Will Learn
 ### Stage 1: Mineral Classifier
