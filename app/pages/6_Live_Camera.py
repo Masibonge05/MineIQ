@@ -27,6 +27,18 @@ with col2:
 start_btn = st.button("Start Camera")
 stop_btn = st.button("Stop Camera")
 
+import time
+import random
+import yaml
+from src.decision.engine import DecisionEngine
+
+# Initialize the Decision Engine
+try:
+    decision_engine = DecisionEngine('configs/rules.yaml')
+except Exception as e:
+    st.error(f"Failed to load Decision Engine: {e}")
+    decision_engine = None
+
 if "camera_active" not in st.session_state:
     st.session_state.camera_active = False
 
@@ -49,10 +61,28 @@ if st.session_state.camera_active:
                 st.error("Error: Failed to grab frame.")
                 break
                 
-            # --- MOCK INFERENCE LOGIC ---
-            # In production, you would pass the frame to:
-            # minerals = classifier.predict(frame)
-            # targets = processability.predict(features)
+            # --- DYNAMIC MOCK INFERENCE LOGIC ---
+            # In production, you would pass the frame to classifier.predict(frame)
+            
+            # Simulate changing mineral compositions over time to trigger different rules
+            t = time.time()
+            pyrite_val = 12 + 10 * np.sin(t / 2) # Fluctuates between 2 and 22
+            alunite_val = max(0, 5 * np.sin(t / 3)) # Fluctuates between 0 and 5
+            silica_val = 8 + 5 * np.cos(t / 2.5) # Fluctuates between 3 and 13
+            k_feldspar_val = 8 + 4 * np.sin(t / 4)
+            cu_rec = 80 + 10 * np.cos(t / 3)
+            
+            minerals = {
+                'pyrite': float(pyrite_val),
+                'alunite': float(alunite_val),
+                'silica': float(silica_val),
+                'k-feldspar': float(k_feldspar_val),
+                'chalcopyrite': 8.3
+            }
+            predictions = {
+                'cu_recovery': {'value': float(cu_rec)},
+                'bwi': {'value': 14.0}
+            }
             
             # Draw a bounding box in the center for targeting
             h, w = frame.shape[:2]
@@ -74,22 +104,33 @@ if st.session_state.camera_active:
             # Update prediction dashboard
             status_placeholder.success("Active - Scanning...")
             
-            mineral_placeholder.markdown("""
+            mineral_placeholder.markdown(f"""
             **Minerals Identified:**
-            * Quartz: 41.2%
-            * Pyrite: 17.6%
+            * Pyrite: {pyrite_val:.1f}%
+            * Silica: {silica_val:.1f}%
+            * K-Feldspar: {k_feldspar_val:.1f}%
+            * Alunite: {alunite_val:.1f}%
             * Chalcopyrite: 8.3%
             """)
             
-            process_placeholder.markdown("""
+            process_placeholder.markdown(f"""
             **Processability Predictions:**
-            * Cu Recovery: 82.1% (High Confidence)
-            * Bond WI: 15.2
+            * Cu Recovery: {cu_rec:.1f}% (Medium Confidence)
+            * Bond WI: 14.0
             """)
             
-            decision_placeholder.info("🟢 No immediate alert. Normal processing.")
+            if decision_engine:
+                decisions = decision_engine.evaluate(minerals, predictions, confidence=0.7)
+                if decisions:
+                    alert_md = ""
+                    for d in decisions:
+                        icon = "🔴" if d['priority'] == 'HIGH' else "🟠"
+                        alert_md += f"{icon} **{d['priority']} PRIORITY:** {d['message']}\n\n"
+                    decision_placeholder.warning(alert_md)
+                else:
+                    decision_placeholder.info("🟢 No immediate alert. Normal processing.")
             
-            # We add a small sleep to avoid maxing out CPU (Streamlit loops can be aggressive)
+            # We add a small sleep to avoid maxing out CPU
             cv2.waitKey(100)
             
         cap.release()
