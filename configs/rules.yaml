@@ -119,7 +119,7 @@ rules:
       value: 10
     action:
       priority: "MEDIUM"
-      message: "High Potassium Feldspar detected. Correlates with high Work Index (hard ore). Increase grinding energy or reduce mill feed rate."
+      message: "Hard ore (High K-Feldspar). Engage MillStar Solids Feed Controller to adjust vibratory feeder frequencies and inlet water ratio. Engage StarCS RNMPC for cyclone feed density."
       icon: "gauge"
 
   - id: "chalcopyrite_locked_pyrite"
@@ -133,5 +133,24 @@ rules:
       message: "High Pyrite detected. Chalcopyrite is likely enclosed within pyrite and poorly liberated. Regrind necessary before flotation."
       icon: "hammer"
 
+  - id: "low_grade_recovery"
+    description: "Low recovery requires grade-recovery optimization"
+    condition:
+      target: "cu_recovery"
+      operator: "<"
+      value: 80
+    action:
+      priority: "HIGH"
+      message: "Low Cu Recovery. Engage FloatStar Grade Recovery Optimiser (FSGO) to automatically calculate optimal air and level setpoints on Roughers and Columns."
+      icon: "activity"
 
-
+  - id: "unstable_mass_pull"
+    description: "High silica/gangue causes unstable mass pull"
+    condition:
+      target: "silica"
+      operator: ">"
+      value: 8
+    action:
+      priority: "MEDIUM"
+      message: "High Silica detected. Engage FloatStar Flow Optimiser (FSFO) to stabilize concentrate mass pulls from Rougher/Scavenger sumps."
+      icon: "sliders"
