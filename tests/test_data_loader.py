@@ -1,19 +1,18 @@
 import pytest
 import pandas as pd
-from src.data.loader import MinetV2Loader, HIDSAGLoader
+from src.data.loader import HIDSAGLoader
 
-def test_minet_loader():
-    loader = MinetV2Loader("dummy_path")
-    df = loader.load()
-    assert isinstance(df, pd.DataFrame)
-    assert 'sample_id' in df.columns
-    assert 'image_path' in df.columns
-    assert 'label' in df.columns
-
-def test_hidsag_loader():
+def test_hidsag_loader_geomet():
     loader = HIDSAGLoader("dummy_path")
-    df = loader.load()
+    df = loader.load_geomet()
     assert isinstance(df, pd.DataFrame)
     assert 'sample_id' in df.columns
-    assert 'h5_path' in df.columns
-    assert 'targets' in df.columns
+    assert 'vnir_path' in df.columns
+    assert 'cu_recovery' in df.columns
+
+def test_hidsag_loader_mineral1():
+    loader = HIDSAGLoader("dummy_path")
+    df = loader.load_mineral1()
+    assert isinstance(df, pd.DataFrame)
+    assert 'sample_id' in df.columns
+    assert 'qemscan_quartz' in df.columns

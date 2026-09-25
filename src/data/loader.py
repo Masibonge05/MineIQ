@@ -6,40 +6,37 @@ import h5py
 
 logger = logging.getLogger(__name__)
 
-class MinetV2Loader:
-    def __init__(self, root_dir: str):
-        self.root_dir = root_dir
-        
-    def load(self) -> pd.DataFrame:
-        # TODO(person-1): Implement loading from Minet V2 folders and Minerals_5640.csv
-        logger.info(f"Loading MinetV2 data from {self.root_dir}")
-        
-        # Mock data for out-of-the-box run
-        data = [
-            {"sample_id": "M_001", "image_path": "mock/m_001.jpg", "label": "bornite", "split": "train"},
-            {"sample_id": "M_002", "image_path": "mock/m_002.jpg", "label": "biotite", "split": "val"},
-        ]
-        df = pd.DataFrame(data)
-        
-        class_counts = df['label'].value_counts()
-        for label, count in class_counts.items():
-            if count < 10:
-                logger.warning(f"Class '{label}' has fewer than 10 samples ({count}).")
-                
-        return df
-
 class HIDSAGLoader:
-    def __init__(self, root_dir: str):
-        self.root_dir = root_dir
+    def __init__(self, config_path: str):
+        self.config_path = config_path
+        # In a real scenario, this loads from the config
+        self.root_dir = "data/hidsag"
         
-    def load(self) -> pd.DataFrame:
-        # TODO(person-1): Implement loading from HIDSAG HDF5 files using hidsag library
-        logger.info(f"Loading HIDSAG data from {self.root_dir}")
-        
-        # Mock data
+    def load_geomet(self) -> pd.DataFrame:
+        logger.info(f"Loading HIDSAG GEOMET subset from {self.root_dir}")
+        # Mock data representing 146 samples with geomet targets
         data = [
-            {"sample_id": "H_001", "h5_path": "mock/h_001.h5", "targets": {"cu_recovery": 82.5}, "split": "train"},
-            {"sample_id": "H_001", "h5_path": "mock/h_001_crop2.h5", "targets": {"cu_recovery": 82.5}, "split": "train"},
-            {"sample_id": "H_002", "h5_path": "mock/h_002.h5", "targets": {"cu_recovery": 65.0}, "split": "test"},
+            {"sample_id": "H_GEOMET_001", "vnir_path": "mock/vnir_001.h5", "swir_path": "mock/swir_001.h5", "rgb_path": "mock/rgb_001.png", "cu_recovery": 82.5, "mo_recovery": 60.2, "ph": 10.5, "lime_consumption": 1.2, "bwi": 15.1, "split": "train"},
+            {"sample_id": "H_GEOMET_002", "vnir_path": "mock/vnir_002.h5", "swir_path": "mock/swir_002.h5", "rgb_path": "mock/rgb_002.png", "cu_recovery": 65.0, "mo_recovery": 55.0, "ph": 10.2, "lime_consumption": 1.5, "bwi": 16.3, "split": "test"},
         ]
+        return pd.DataFrame(data)
+
+    def load_porphyry(self) -> pd.DataFrame:
+        logger.info(f"Loading HIDSAG PORPHYRY subset from {self.root_dir}")
+        data = [{"sample_id": "H_PORPHYRY_001", "composition": "Q1", "split": "train"}]
+        return pd.DataFrame(data)
+
+    def load_mineral1(self) -> pd.DataFrame:
+        logger.info(f"Loading HIDSAG MINERAL1 subset from {self.root_dir}")
+        data = [{"sample_id": "H_MIN1_001", "qemscan_quartz": 40.5, "split": "train"}]
+        return pd.DataFrame(data)
+
+    def load_mineral2(self) -> pd.DataFrame:
+        logger.info(f"Loading HIDSAG MINERAL2 subset from {self.root_dir}")
+        data = [{"sample_id": "H_MIN2_001", "xrd_quartz": 42.0, "split": "train"}]
+        return pd.DataFrame(data)
+
+    def load_geochem(self) -> pd.DataFrame:
+        logger.info(f"Loading HIDSAG GEOCHEM subset from {self.root_dir}")
+        data = [{"sample_id": "H_GEOCHEM_001", "xrf_cu": 1.2, "split": "train"}]
         return pd.DataFrame(data)

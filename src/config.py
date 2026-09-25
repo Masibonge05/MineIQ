@@ -7,7 +7,6 @@ from typing import Dict, Any, List
 class Config:
     project_name: str
     version: str
-    minet_v2_root: str
     hidsag_root: str
     incoming_dir: str
     image_size: int
@@ -29,7 +28,6 @@ class Config:
         return cls(
             project_name=raw['project']['name'],
             version=raw['project']['version'],
-            minet_v2_root=raw['paths']['minet_v2_root'],
             hidsag_root=raw['paths']['hidsag_root'],
             incoming_dir=raw['paths']['incoming_dir'],
             image_size=raw['data']['image_size'],

@@ -7,7 +7,7 @@
 - `src/data/augmentation.py`
 
 **Expected Deliverables:**
-- Working PyTorch DataLoaders for Minet and HIDSAG.
+- Working PyTorch DataLoaders for HIDSAG (5 subsets).
 - Complete data preprocessing functions.
 
 ## Person 2 (Mineral AI Lead)

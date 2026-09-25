@@ -8,7 +8,6 @@ def mock_config():
     return Config(
         project_name="Test",
         version="0.1",
-        minet_v2_root="",
         hidsag_root="",
         incoming_dir="",
         image_size=224,

@@ -4,7 +4,6 @@ project:
   tagline: "Real-Time Mineral Intelligence for Flotation Optimisation"
 
 paths:
-  minet_v2_root: "data/raw/minet_v2"
   hidsag_root: "data/hidsag"
   incoming_dir: "data/incoming"
   checkpoints: "outputs/checkpoints"
